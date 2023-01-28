@@ -4,20 +4,6 @@ import numpy as np
 
 current_directory = Path(__file__).resolve().parent
 
-'''# Load an image
-image = cv2.imread(f"{current_directory}/imagenes/image.jpg")
-
-# Define the shear transformation matrix
-shear_matrix = np.float32([[1, 0.5, 0], [0, 1, 0]])
-
-# Apply the shear transformation
-sheared_image = cv2.warpAffine(
-    image, shear_matrix, (image.shape[1], image.shape[0]))
-
-
-cv2.imshow("Sheared", sheared_image)
-cv2.waitKey(0)  # Espera a que el usuario presione una tecla
-'''
 
 # Load an image
 image = cv2.imread(f"{current_directory}/imagenes/image.jpg")

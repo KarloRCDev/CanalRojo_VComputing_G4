@@ -22,7 +22,7 @@ eje = input("En q direccion desea aplicar el efecto shear? (X/Y): ")
 if eje in ["y", "Y"]:
     inclinacion = input("Inclinar hacia la derecha(R) o hacia la izquierda(L)?: ")
     if inclinacion in ["r","R"]:
-        img = cv2.copyMakeBorder(img, 380, 0, 40, 40, cv2.BORDER_CONSTANT, value = (0, 0, 0))
+        img = cv2.copyMakeBorder(img, 380, 0, 40, 40, cv2.BORDER_CONSTANT, value = (0, 0, 0)) # Añadiendo un borde negro para q se visualice mejor el efecto shear
         rows, cols, dim = img.shape # obtener la forma de la imagen
         # matriz de transformación para Shearing
         # shearing aplicado al eje x
@@ -30,7 +30,7 @@ if eje in ["y", "Y"]:
             	        [-0.5, 1, 0],
            	            [0, 0, 1]])
     if inclinacion in ["l","L"]:
-        img = cv2.copyMakeBorder(img, 0, 380, 40, 40, cv2.BORDER_CONSTANT, value = (0, 0, 0))
+        img = cv2.copyMakeBorder(img, 0, 380, 40, 40, cv2.BORDER_CONSTANT, value = (0, 0, 0)) # Añadiendo un borde negro para q se visualice mejor el efecto shear
         rows, cols, dim = img.shape
         M = np.float32([[1, 0, 0],
             	        [0.5, 1, 0],
@@ -38,7 +38,7 @@ if eje in ["y", "Y"]:
 if eje in ["x", "X"]:
     inclinacion = input("Inclinar hacia arriba(U) o hacia abajo(D)?: ")
     if inclinacion in ["d","D"]:
-        img = cv2.copyMakeBorder(img, 40, 40, 0, 360, cv2.BORDER_CONSTANT, value = (0, 0, 0))
+        img = cv2.copyMakeBorder(img, 40, 40, 0, 360, cv2.BORDER_CONSTANT, value = (0, 0, 0)) # Añadiendo un borde negro para q se visualice mejor el efecto shear
         rows, cols, dim = img.shape 
         # matriz de transformación para Shearing
         # shearing aplicado al eje y
@@ -46,8 +46,8 @@ if eje in ["x", "X"]:
             	        [0, 1, 0],
            	            [0, 0, 1]])
     if inclinacion in ["u","U"]:
-        img = cv2.copyMakeBorder(img, 40, 40, 360, 0, cv2.BORDER_CONSTANT, value = (0, 0, 0))
-        rows, cols, dim = img.shape
+        img = cv2.copyMakeBorder(img, 40, 40, 360, 0, cv2.BORDER_CONSTANT, value = (0, 0, 0)) # Añadiendo un borde negro para q se visualice mejor el efecto shear
+        rows, cols, dim = img.shape 
         M = np.float32([[1, -0.5, 0],
             	        [0, 1, 0],
            	            [0, 0, 1]])

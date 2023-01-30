@@ -19,10 +19,10 @@ if canal in ['r','R']:
     r2 = np.clip(r2, 2, 2)
 if canal in ['g','G']:
     g16 = np.clip(g16, 16, 16)
-    r2 = np.clip(r2, 2, 2)
+    g2 = np.clip(r2, 2, 2)
 if canal in ['b','B']:
     b16 = np.clip(b16, 16, 16)
-    r2 = np.clip(r2, 2, 2)
+    b2 = np.clip(r2, 2, 2)
 #r = np.where(r > 16, 16, r) #Metodo opcional donde se transforma la intensidad de cada pixel mayor a 16 del canal rojo a 16
 #r = np.where(r < 16, 16, r) #Metodo opcional donde se transforma la intensidad de cada pixel menor a 16 del canal rojo a 16
 

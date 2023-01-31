@@ -7,16 +7,19 @@ current_directory = Path(__file__).resolve().parent
 
 gray_scale_image = cv2.imread(
     f"{current_directory}/imagenes/gray_image_Lenna.jpg")
+
+
+# Mostrando la imagen en formato binario
 binary_image = cv2.imread(
     f"{current_directory}/imagenes/binary_image_Lenna.jpg")
 cv2.imshow("Binary Image", binary_image)
 cv2.waitKey(0)
 
-
+# Mostrando el histograma de la imagen en formato binario
 plt.hist(binary_image.ravel(), 256, [0, 256], color="black")
 plt.show()
 
-
+# Mostrando la imagen de la escala de grises con contraste AUMENTADO
 alpha = 1.5
 beta = 0
 gamma = 0
@@ -30,6 +33,7 @@ cv2.imwrite(
 cv2.imshow("image", contrast_image)
 cv2.waitKey(0)
 
+# Mostrando el histograma de la imagen de la escala de grises con contraste AUMENTADO
 plt.hist(contrast_image.ravel(), 256, [0, 256], color="black")
 plt.show()
 cv2.waitKey(0)

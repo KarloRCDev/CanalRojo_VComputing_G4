@@ -28,29 +28,13 @@ cv2.addWeighted(contrast_image, alpha, np.zeros(
     contrast_image.shape, contrast_image.dtype), 0, beta)
 p1, p2 = np.percentile(contrast_image, (50, 50))
 contrast_image = np.interp(contrast_image, (p1, p2), (0, 255))
-contrast_histogram = contrast_image.copy()
-
-
 cv2.imwrite(
     f"{current_directory}/imagenes/contrast_image_Lenna.jpg", contrast_image)
-
 cv2.imshow("image", contrast_image)
 cv2.waitKey(0)
-
-mean = np.mean(contrast_histogram)
-std_dev = np.std(contrast_histogram)
-min_value = np.min(contrast_histogram)
-max_value = np.max(contrast_histogram)
-
-print("Mean:", mean)
-print("StdDev:", std_dev)
-print("Min:", min_value)
-print("Max:", max_value)
 
 # Mostrando el histograma de la imagen de la escala de grises con contraste AUMENTADO
 plt.hist(contrast_image.ravel(), 256, [0, 256], color="black")
 plt.show()
 cv2.waitKey(0)
-
-
 cv2.destroyAllWindows()

@@ -6,7 +6,7 @@ from pathlib import Path
 current_directory = Path(__file__).resolve().parent
 
 # Load the pre-trained CNN model
-model = tf.keras.models.load_model(f'{current_directory}/model_train/trained_model.h5')
+model = tf.keras.models.load_model(f'{current_directory}/model_train/trained_model2.h5')
 
 # Load the cascade classifier for face detection
 face_cascade = cv2.CascadeClassifier(cv2.data.haarcascades + "haarcascade_frontalface_default.xml")
@@ -30,7 +30,7 @@ def predict_emotion(frame):
     return frame
 
 # Load the image file
-img = cv2.imread(f'{current_directory}/imagen/triste.jpg', cv2.IMREAD_GRAYSCALE)
+img = cv2.imread(f'{current_directory}/imagen/feliz.jpg', cv2.IMREAD_GRAYSCALE)
 # Predict the emotions in the image
 img_emo = predict_emotion(img)
 

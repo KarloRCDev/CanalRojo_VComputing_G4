@@ -7,13 +7,11 @@ current_directory = Path(__file__).resolve().parent
 
 # Training data generator
 training_data_gen = tf.keras.preprocessing.image.ImageDataGenerator(rescale=1./255)
-training_gen = training_data_gen.flow_from_directory(directory=f'{current_directory}/model_train/train', target_size=(48, 48),
-                                                      batch_size=32, class_mode='categorical')
+training_gen = training_data_gen.flow_from_directory(directory=f'{current_directory}/model_train/train', target_size=(48, 48), color_mode='grayscale', batch_size=32, class_mode='categorical')
 
 # Test data generator
 test_data_gen = tf.keras.preprocessing.image.ImageDataGenerator(rescale=1./255)
-test_gen = test_data_gen.flow_from_directory(directory=f'{current_directory}/model_train/test', target_size=(48, 48),
-                                             batch_size=32, class_mode='categorical')
+test_gen = test_data_gen.flow_from_directory(directory=f'{current_directory}/model_train/test', target_size=(48, 48), color_mode='grayscale', batch_size=32, class_mode='categorical')
 
 # Load the pre-trained CNN model
 model = tf.keras.Sequential()
@@ -37,8 +35,8 @@ model.add(tf.keras.layers.Dense(len(emotions), activation='softmax'))
 model.compile(optimizer='adam', loss='categorical_crossentropy', metrics=['accuracy'])
 
 # Train the model
-history = model.fit_generator(training_gen, steps_per_epoch=len(training_gen), epochs=10,
+history = model.fit_generator(training_gen, steps_per_epoch=len(training_gen), epochs=20,
                               validation_data=test_gen, validation_steps=len(test_gen))
 
 # Save the trained model
-model.save(f'{current_directory}/model_train/trained_model.h5')
+model.save(f'{current_directory}/model_train/trained_model2.h5')

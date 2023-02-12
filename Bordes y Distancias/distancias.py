@@ -6,7 +6,7 @@ current_directory = Path(__file__).resolve().parent
 
 # Leer la imagen
 img = cv2.imread(f'{current_directory}/imagen/puerta.png')
-img_region = img.copy()
+
 img_distancia = img.copy()
 
 # Mostrar la imagen y esperar a que el usuario seleccione dos puntos de interés
@@ -22,6 +22,7 @@ def clic(event, x, y, flags, param):
             cv2.destroyAllWindows()
 
 
+print(f"\n--> Seleccione los puntos de referencia para calcular la relación de escala")
 cv2.imshow('Imagen', img_distancia)
 cv2.setMouseCallback('Imagen', clic)
 cv2.waitKey(0)
@@ -38,6 +39,7 @@ print(f"La relación de escala es: {escala:.6f} metros por píxel")
 
 # Esperar a que el usuario seleccione dos puntos aleatorios
 puntos = []
+print(f"\n--> Seleccione dos puntos aleatorios de la imagen para calcular la distancia entre ellos")
 cv2.imshow('Imagen', img_distancia)
 cv2.setMouseCallback('Imagen', clic)
 cv2.waitKey(0)
@@ -52,26 +54,27 @@ cv2.putText(img_distancia, f"Distancia: {dist_metros:.2f} metros",
             (25, 50), cv2.FONT_HERSHEY_SIMPLEX, 1, (0, 255, 0), 2)
 print(f"La distancia entre los puntos es: {dist_metros:.2f} metros")
 
-cv2.imshow('Imagen', img_distancia)
-cv2.waitKey(0)
+# cv2.imshow('Imagen', img_distancia)
+# cv2.waitKey(0)
 
 
 # Esperar a que el usuario seleccione una región
-roi = cv2.selectROI(img_region)
+print(f"\n--> Seleccione una región de la imagen para calcular su área\n")
+roi = cv2.selectROI(img_distancia)
 
 # Calcular el área de la región seleccionada utilizando la relación de escala
 area_metros = (roi[2] * escala) * (roi[3] * escala)
 
 # Mostrar el área en la imagen y en la consola
-cv2.rectangle(img_region, (int(roi[0]), int(roi[1])), (int(
+cv2.rectangle(img_distancia, (int(roi[0]), int(roi[1])), (int(
     roi[0]+roi[2]), int(roi[1]+roi[3])), (0, 255, 0), 2)
-cv2.putText(img_region, f"Area: {area_metros:.2f} metros cuadrados",
-            (25, 150), cv2.FONT_HERSHEY_SIMPLEX, 1, (0, 255, 0), 2)
+cv2.putText(img_distancia, f"Area: {area_metros:.2f} m2",
+            (25, 165), cv2.FONT_HERSHEY_SIMPLEX, 1, (0, 255, 0), 2)
 print(
-    f"El área de la región seleccionada es: {area_metros:.2f} m2")
+    f"\nEl área de la región seleccionada es: {area_metros:.2f} metros cuadrados.")
 
 
 # Mostrar la imagen con la distancia calculada
-cv2.imshow('Imagen', img_region)
+cv2.imshow('Imagen', img_distancia)
 cv2.waitKey(0)
 cv2.destroyAllWindows()

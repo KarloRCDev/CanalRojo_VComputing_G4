@@ -4,8 +4,7 @@ from pathlib import Path
 
 current_directory = Path(__file__).resolve().parent
 path = f"{current_directory}/imagen/bordes.png"
-path1 = f"{current_directory}/imagen/bordessuavizados.png"
-path2 = f"{current_directory}/imagen/bordesyaidentificados.png"
+path1 = f"{current_directory}/imagen/bordes2doMetodo.png"
 
 # Cargar la imagen
 img=cv2.imread(path)
@@ -14,18 +13,13 @@ img=cv2.imread(path)
 ksize = 15 # Tamaño del kernel
 smoothed = cv2.fastNlMeansDenoisingColored(img, None, 10, 10, 7, ksize)
 
-#Transformar la imagen en escala de grises
-gray = cv2.cvtColor(smoothed, cv2.COLOR_BGR2GRAY)
-
 # Aplicar el operador de Sobel en dirección horizontal y vertical
-sobel_x = cv2.Sobel(gray, cv2.CV_64F, 1, 0, ksize=3)
-sobel_y = cv2.Sobel(gray, cv2.CV_64F, 0, 1, ksize=3)
-
-# Calcular la magnitud de los bordes
-magnitude = np.sqrt(np.square(sobel_x) + np.square(sobel_y))
-
-# Umbralizar la imagen para aislar los bordes
-_, thresholded = cv2.threshold(magnitude, 112, 255, cv2.THRESH_BINARY)
+sobel_x = cv2.Sobel(smoothed, cv2.CV_64F, 1, 0,ksize=3)
+sobel_y = cv2.Sobel(smoothed, cv2.CV_64F, 0, 1,ksize=3)
+# Se usa para convertir la matriz a un tipo de datos de 8 bits sin signo (unsigned int).
+sobel_x = np.uint8(np.absolute(sobel_x))
+sobel_y = np.uint8(np.absolute(sobel_y))
+sobelU = cv2.bitwise_or(sobel_x,sobel_y)
 
 #Mostrar imagen original
 cv2.imshow("Imagen original", img)
@@ -33,7 +27,6 @@ cv2.waitKey(0)
 
 #Mostrar imagen suavizada
 cv2.imshow("Imagen suavizada", smoothed)
-cv2.imwrite(path1, smoothed)
 cv2.waitKey(0)
 
 #Sobel horizontal
@@ -44,9 +37,9 @@ cv2.waitKey(0)
 cv2.imshow("sobel y", sobel_y)
 cv2.waitKey(0)
 
-# Mostrar la imagen resultante
-cv2.imshow("Bordes detectados con Sobel", thresholded)
-cv2.imwrite(path2, thresholded)
+#Mostrar la imagen resultante
+cv2.imshow("Sobel Segundo Metodo", sobelU)
+cv2.imwrite(path1, sobelU)
 cv2.waitKey(0)
 cv2.destroyAllWindows()
 

@@ -22,6 +22,10 @@ def draw_circle_bresenham(img, center, radius):
         x = x + 1
 
     cv2.circle(img, center, 3, (0, 255, 0), -1)
+    # Draw a line that crosses the circle
+    pt1 = (center[0] - radius, center[1] + radius)
+    pt2 = (center[0] + radius, center[1] - radius)
+    cv2.line(img, pt1, pt2, (0, 255, 0), 2)
 
     cv2.imshow('Circle', img)
     cv2.waitKey(0)

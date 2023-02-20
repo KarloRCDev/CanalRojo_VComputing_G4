@@ -5,7 +5,6 @@ from pathlib import Path
 current_directory = Path(__file__).resolve().parent
 
 
-# Carga de imagen desde la ruta especificada
 path = f"{current_directory}/images/unmsm.jpg"
 
 img = cv2.imread(path)
@@ -27,15 +26,26 @@ mask = cv2.inRange(img, min_values, max_values)
 # Apply a median blur to remove small noise
 mask = cv2.medianBlur(mask, 5)
 
-# Apply the mask to the duplicate image
+
 img_copy = img.copy()
 result = cv2.bitwise_and(img_copy, img_copy, mask=mask)
 
+# Convert the mask to a 3-channel image with green channel values of 255 and red/blue channel values of 0
+mask_3d = cv2.cvtColor(mask, cv2.COLOR_GRAY2BGR)
+mask_3d[np.where((mask_3d == [255, 255, 255]).all(axis=2))] = [0, 255, 0]
+
+# Overlap the segmented regions to the original image
+alpha = 0.5
+beta = 1 - alpha
+result2 = cv2.addWeighted(img, alpha, mask_3d, beta, 0)
 
 # Display the result
-
 cv2.imshow("Original", img)
+cv2.waitKey(0)
 
-cv2.imshow("Result", result)
+cv2.imshow("Segmented regions", result)
+cv2.waitKey(0)
+
+cv2.imshow("Segmented regions overlapped to original image", result2)
 cv2.waitKey(0)
 cv2.destroyAllWindows()

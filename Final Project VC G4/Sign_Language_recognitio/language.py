@@ -10,8 +10,8 @@ model = tf.keras.models.load_model(
     f'{current_directory}/model_train/trained_model.h5')
 
 # Load the cascade classifier for hand detection
-cascade_path = "fullpath_to_hand_cascade/haarcascade_hand.xml"
-hand_cascade = cv2.CascadeClassifier(cascade_path)
+#cascade_path = "fullpath_to_hand_cascade/haarcascade_hand.xml"
+hand_cascade = cv2.CascadeClassifier("haarcascade_hand.xml")
 
 # Define the list of letters
 letters = ['A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'J', 'K', 'L', 'M', 'N', 'O', 'P', 'Q', 'R', 'S', 'T', 'U', 'V', 'W', 'X', 'Y']

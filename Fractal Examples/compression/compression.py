@@ -82,10 +82,8 @@ def compress(img, source_size, destination_size, step):
             print("{}/{} <---> {}/{}".format(i, i_count, j, j_count))
             transformations[i].append(None)
             min_d = float('inf')
-            # Extract the destination block
             D = img[i*destination_size:(i+1)*destination_size,
                     j*destination_size:(j+1)*destination_size]
-            # Test all possible transformations and take the best one
             for k, l, direction, angle, S in transformed_blocks:
                 contrast, brightness = find_contrast_and_brightness2(D, S)
                 S = contrast*S + brightness
@@ -104,10 +102,9 @@ def decompress(transformations, source_size, destination_size, step, nb_iter=8):
     iterations = [np.random.randint(0, 256, (height, width))]
     cur_img = np.zeros((height, width))
     for i_iter in range(nb_iter):
-        # print(i_iter)
         for i in range(len(transformations)):
             for j in range(len(transformations[i])):
-                # Apply transform
+                # Aplicar transformación
                 k, l, flip, angle, contrast, brightness = transformations[i][j]
                 S = reduce(
                     iterations[-1][k*step:k*step+source_size, l*step:l*step+source_size], factor)
@@ -121,7 +118,6 @@ def decompress(transformations, source_size, destination_size, step, nb_iter=8):
 
 # Plot
 def plot_iterations(iterations, target=None):
-    # Configure plot
     plt.figure()
     nb_row = math.ceil(np.sqrt(len(iterations)))
     nb_cols = nb_row
@@ -132,7 +128,6 @@ def plot_iterations(iterations, target=None):
         if target is None:
             plt.title(str(i))
         else:
-            # Display the RMSE
             plt.title(
                 str(i) + ' (' + '{0:.2f}'.format(np.sqrt(np.mean(np.square(target - img)))) + ')')
         frame = plt.gca()
@@ -141,7 +136,7 @@ def plot_iterations(iterations, target=None):
     plt.tight_layout()
 
 
-# Parameters
+# Parametros
 directions = [1, -1]
 angles = [0, 90, 180, 270]
 candidates = [[direction, angle]

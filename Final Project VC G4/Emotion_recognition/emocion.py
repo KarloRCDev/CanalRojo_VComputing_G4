@@ -41,7 +41,7 @@ def predict_emotion_image(frame,emotion_image):
 
 
 # Function to detect faces in an image and predict the emotions
-def predict_emotion(frame):
+def predict_emotion_video(frame):
     gray = cv2.cvtColor(frame, cv2.COLOR_BGR2GRAY)
     faces = face_cascade.detectMultiScale(gray, scaleFactor=1.1, minNeighbors=5, minSize=(30, 30))
 
@@ -65,7 +65,7 @@ def detection_realtime():
         ret, frame = cap.read()
 
         # Apply emotion detection to the frame
-        frame_emo = predict_emotion(frame)
+        frame_emo = predict_emotion_video(frame)
 
         # Display the resulting frame
         cv2.imshow('Emotion Recognition', frame_emo)

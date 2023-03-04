@@ -35,11 +35,8 @@ def flip(img, direction):
 def apply_transformation(img, direction, angle, contrast=1.0, brightness=0.0):
     return contrast*rotate(flip(img, direction), angle) + brightness
 
-# Contrast and brightness
-
 
 def find_contrast_and_brightness1(D, S):
-    # Fix the contrast and only fit the brightness
     contrast = 0.75
     brightness = (np.sum(D - contrast*S)) / D.size
     return contrast, brightness
@@ -51,7 +48,6 @@ def find_contrast_and_brightness2(D, S):
         (np.ones((S.size, 1)), np.reshape(S, (S.size, 1))), axis=1)
     b = np.reshape(D, (D.size,))
     x, _, _, _ = np.linalg.lstsq(A, b)
-    #x = optimize.lsq_linear(A, b, [(-np.inf, -2.0), (np.inf, 2.0)]).x
     return x[1], x[0]
 
 
@@ -60,10 +56,8 @@ def generate_all_transformed_blocks(img, source_size, destination_size, step):
     transformed_blocks = []
     for k in range((img.shape[0] - source_size) // step + 1):
         for l in range((img.shape[1] - source_size) // step + 1):
-            # Extract the source block and reduce it to the shape of a destination block
             S = reduce(img[k*step:k*step+source_size, l *
                        step:l*step+source_size], factor)
-            # Generate all possible transformed blocks
             for direction, angle in candidates:
                 transformed_blocks.append(
                     (k, l, direction, angle, apply_transformation(S, direction, angle)))
@@ -82,10 +76,8 @@ def compress(img, source_size, destination_size, step):
             print("{}/{} <---> {}/{}".format(i, i_count, j, j_count))
             transformations[i].append(None)
             min_d = float('inf')
-            # Extract the destination block
             D = img[i*destination_size:(i+1)*destination_size,
                     j*destination_size:(j+1)*destination_size]
-            # Test all possible transformations and take the best one
             for k, l, direction, angle, S in transformed_blocks:
                 contrast, brightness = find_contrast_and_brightness2(D, S)
                 S = contrast*S + brightness
@@ -94,6 +86,7 @@ def compress(img, source_size, destination_size, step):
                     min_d = d
                     transformations[i][j] = (
                         k, l, direction, angle, contrast, brightness)
+
     return transformations
 
 
@@ -104,10 +97,8 @@ def decompress(transformations, source_size, destination_size, step, nb_iter=8):
     iterations = [np.random.randint(0, 256, (height, width))]
     cur_img = np.zeros((height, width))
     for i_iter in range(nb_iter):
-        # print(i_iter)
         for i in range(len(transformations)):
             for j in range(len(transformations[i])):
-                # Apply transform
                 k, l, flip, angle, contrast, brightness = transformations[i][j]
                 S = reduce(
                     iterations[-1][k*step:k*step+source_size, l*step:l*step+source_size], factor)
@@ -121,7 +112,6 @@ def decompress(transformations, source_size, destination_size, step, nb_iter=8):
 
 # Plot
 def plot_iterations(iterations, target=None):
-    # Configure plot
     plt.figure()
     nb_row = math.ceil(np.sqrt(len(iterations)))
     nb_cols = nb_row
@@ -131,17 +121,13 @@ def plot_iterations(iterations, target=None):
         plt.imshow(img, cmap='gray', vmin=0, vmax=255, interpolation='none')
         if target is None:
             plt.title(str(i))
-        else:
-            # Display the RMSE
-            plt.title(
-                str(i) + ' (' + '{0:.2f}'.format(np.sqrt(np.mean(np.square(target - img)))) + ')')
         frame = plt.gca()
         frame.axes.get_xaxis().set_visible(False)
         frame.axes.get_yaxis().set_visible(False)
     plt.tight_layout()
 
 
-# Parameters
+# Parametros
 directions = [1, -1]
 angles = [0, 90, 180, 270]
 candidates = [[direction, angle]

@@ -1,10 +1,12 @@
 import cv2
 import numpy as np
+
+
 def draw_circle_bresenham(img, center, radius):
     x, y = 0, radius
     d = 3 - 2 * radius
     while x <= y:
-        
+
         img[center[1] + x, center[0] + y] = (0, 0, 255)
         img[center[1] + y, center[0] + x] = (0, 0, 255)
         img[center[1] - x, center[0] + y] = (0, 0, 255)
@@ -31,7 +33,7 @@ def draw_circle_bresenham(img, center, radius):
     cv2.waitKey(0)
     cv2.destroyAllWindows()
 
-# example usage
+
 img = np.zeros((500, 500, 3), np.uint8)
 center = (250, 250)
 radius = 100

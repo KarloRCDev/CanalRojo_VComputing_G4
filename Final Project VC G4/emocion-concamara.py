@@ -7,7 +7,7 @@ current_directory = Path(__file__).resolve().parent
 
 # Load the pre-trained CNN model
 model = tf.keras.models.load_model(
-    f'{current_directory}/model_train/trained_model2.h5')
+    f'{current_directory}/Sign_Language_recognitio/model_train/trained_model2.h5')
 
 # Load the cascade classifier for face detection
 face_cascade = cv2.CascadeClassifier(

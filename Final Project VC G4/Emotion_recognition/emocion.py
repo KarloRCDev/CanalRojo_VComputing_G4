@@ -82,13 +82,13 @@ def detection_realtime():
 def menu(opcion):
     if(opcion==1):
         # Load the image file
-        emotions_list = {1:'angry', 2:'disgust', 3:'fear', 4:'happy', 5:'neutral', 6:'sad', 7:'surprise'}
+        emotions_dict = {1:'angry', 2:'disgust', 3:'fear', 4:'happy', 5:'neutral', 6:'sad', 7:'surprise'}
 
         emotion = int(input("\nSeleccione una imagen: \n1. angry\n2. disgust\n3. fear\n4. happy\n5. neutral\n6. sad\n7. surprise\n\t--> "))
-        img = cv2.imread(f'{current_directory}/imagen/{emotions_list[emotion]}.jpg',
+        img = cv2.imread(f'{current_directory}/imagen/{emotions_dict[emotion]}.jpg',
                         cv2.IMREAD_GRAYSCALE)
         # Predict the emotions in the image
-        img_emo = predict_emotion_image(img,emotions_list[emotion])
+        img_emo = predict_emotion_image(img,emotions_dict[emotion])
 
         # Display the image
         cv2.imshow('Emotion Recognition', img_emo)

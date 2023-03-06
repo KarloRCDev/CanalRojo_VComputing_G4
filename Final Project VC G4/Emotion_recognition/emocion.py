@@ -42,7 +42,7 @@ def predict_emotion_image(frame,emotion_image):
 
 
 # Function to detect faces in an image and predict the emotions
-def predict_emotion_video(frame):
+def predict_emotion_realtime(frame):
     gray = cv2.cvtColor(frame, cv2.COLOR_BGR2GRAY)
     faces = face_cascade.detectMultiScale(gray, scaleFactor=1.1, minNeighbors=5, minSize=(30, 30))
 
@@ -58,10 +58,14 @@ def predict_emotion_video(frame):
     
     return frame
 
-def detection_realtime():
+def detection_realtime(video=False):
     # Open the default camera
     #cap = cv2.VideoCapture(f'{current_directory}/imagen/happyvideo2.mp4')
-    cap = cv2.VideoCapture(0)
+    #cap = cv2.VideoCapture(0)
+    if(video):
+        cap = cv2.VideoCapture(f'{current_directory}/imagen/happyvideo.mp4')
+    else:
+        cap = cv2.VideoCapture(0)
 
     while True:
         # Capture frame-by-frame
@@ -69,7 +73,7 @@ def detection_realtime():
             ret, frame = cap.read()
 
             # Apply emotion detection to the frame
-            frame_emo = predict_emotion_video(frame)
+            frame_emo = predict_emotion_realtime(frame)
 
             # Display the resulting frame
             cv2.imshow('Emotion Recognition', frame_emo)
@@ -105,6 +109,9 @@ def menu(opcion):
 
         
     elif(opcion==2):
+        opt = int(input("\n1.Video or 2.Webcam?\n\t--> "))
+        if(opt==1):
+            detection_realtime(video=True)
         detection_realtime()
 
 opcion = int(input(f"\nSeleccione una opcion:\n1. Detectar emociones de imagenes\n2. Detectar emociones en tiempo real.\n\t--> "))

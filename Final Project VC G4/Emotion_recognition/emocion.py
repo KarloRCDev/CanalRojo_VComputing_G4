@@ -1,6 +1,7 @@
 import cv2
 import numpy as np
 import tensorflow as tf
+import time
 from pathlib import Path
 
 current_directory = Path(__file__).resolve().parent
@@ -51,29 +52,36 @@ def predict_emotion_video(frame):
         roi = roi_gray.reshape(1, 48, 48, 1) / 255.0
         emotion = emotions[np.argmax(model.predict(roi))]
         cv2.rectangle(frame, (x, y), (x + w, y + h), (255, 0, 0), 2)
-        cv2.putText(frame, emotion, (x, y), cv2.FONT_HERSHEY_SIMPLEX,
+        cv2.putText(frame, emotion, (y, x), cv2.FONT_HERSHEY_SIMPLEX,
                     1, (255, 255, 0), 2, cv2.LINE_AA)
-
+        
+    
     return frame
 
 def detection_realtime():
     # Open the default camera
+    #cap = cv2.VideoCapture(f'{current_directory}/imagen/happyvideo2.mp4')
     cap = cv2.VideoCapture(0)
 
     while True:
         # Capture frame-by-frame
-        ret, frame = cap.read()
+        try:
+            ret, frame = cap.read()
 
-        # Apply emotion detection to the frame
-        frame_emo = predict_emotion_video(frame)
+            # Apply emotion detection to the frame
+            frame_emo = predict_emotion_video(frame)
 
-        # Display the resulting frame
-        cv2.imshow('Emotion Recognition', frame_emo)
+            # Display the resulting frame
+            cv2.imshow('Emotion Recognition', frame_emo)
 
-        # Exit on ESC key
-        if cv2.waitKey(1) == 27:
+            # Exit on ESC key
+            if cv2.waitKey(1) == 27:
+                break
+        #Add an exception when the video ends
+        except:
+            print("Video ended")
             break
-
+        
     # Release the capture and destroy the windows
     cap.release()
     cv2.destroyAllWindows()

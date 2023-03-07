@@ -99,10 +99,7 @@ def decompress(transformations, source_size, destination_size, step, nb_iter=8):
     for i_iter in range(nb_iter):
         for i in range(len(transformations)):
             for j in range(len(transformations[i])):
-<<<<<<< HEAD
-=======
                 # Aplicar transformación
->>>>>>> fdf0315603630c2bec78578514c5d5bbc7ee7dd6
                 k, l, flip, angle, contrast, brightness = transformations[i][j]
                 S = reduce(
                     iterations[-1][k*step:k*step+source_size, l*step:l*step+source_size], factor)
@@ -125,12 +122,9 @@ def plot_iterations(iterations, target=None):
         plt.imshow(img, cmap='gray', vmin=0, vmax=255, interpolation='none')
         if target is None:
             plt.title(str(i))
-<<<<<<< HEAD
-=======
         else:
             plt.title(
                 str(i) + ' (' + '{0:.2f}'.format(np.sqrt(np.mean(np.square(target - img)))) + ')')
->>>>>>> fdf0315603630c2bec78578514c5d5bbc7ee7dd6
         frame = plt.gca()
         frame.axes.get_xaxis().set_visible(False)
         frame.axes.get_yaxis().set_visible(False)

@@ -1,7 +1,6 @@
 import cv2
 import numpy as np
 import tensorflow as tf
-import time
 from pathlib import Path
 
 current_directory = Path(__file__).resolve().parent
@@ -19,7 +18,7 @@ emotions = ['angry', 'disgust', 'fear', 'happy', 'neutral', 'sad', 'surprise']
 
 
 def predict_emotion_image(frame,emotion_image):
-
+    #gray = cv2.cvtColor(frame, cv2.COLOR_BGR2GRAY)
     img = cv2.imread(f'{current_directory}/imagen/{emotion_image}.jpg',
                         cv2.IMREAD_GRAYSCALE)
     
@@ -91,6 +90,7 @@ def detection_realtime(video=False):
 
 def menu(opcion):
     if(opcion==1):
+        # Load the image file
         emotions_dict = {1:'angry', 2:'disgust', 3:'fear', 4:'happy', 5:'neutral', 6:'sad', 7:'surprise'}
 
         emotion = int(input("\nSeleccione una imagen: \n1. angry\n2. disgust\n3. fear\n4. happy\n5. neutral\n6. sad\n7. surprise\n\t--> "))

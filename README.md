@@ -37,17 +37,17 @@ Throughout the course the following topics have been developed:
 ![image](https://user-images.githubusercontent.com/90058131/223302988-3db90dc4-1d45-4ea9-9152-01992e52c15d.png)
 
 
-## Implementing image segmentation algorithm using threshold
+## Implementation image segmentation algorithm using threshold
 ![image](https://user-images.githubusercontent.com/90058131/223301876-bf33489b-d395-4a6c-857f-1790fd7c83be.png)
 ![image](https://user-images.githubusercontent.com/90058131/223301892-b08acf6d-d996-47a5-97dd-4e76b701abd0.png)
 
-## Generating a fractal with python
+## Generation of fractals using python
 ![image](https://user-images.githubusercontent.com/90058131/223302248-d76646d2-8b5f-4b0e-86fc-7a7a4cb973e2.png)
 
-## Generating Sierpinski triangle
+## Generation of Sierpinski triangle
 ![image](https://user-images.githubusercontent.com/90058131/223302282-9c789191-b7dc-4cc2-98ef-71f13575e7ea.png)
 
-## Implementing Fractal Compression
+## Fractal Compression Implementation
 ![image](https://user-images.githubusercontent.com/90058131/223302462-05fdd38b-9834-4bd9-a62b-9d79305a18bd.png)
 
 ## Detection of emotions in real time
